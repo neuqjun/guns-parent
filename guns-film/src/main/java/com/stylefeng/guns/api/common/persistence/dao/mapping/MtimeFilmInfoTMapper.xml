@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.api.common.persistence.dao.MtimeFilmInfoTMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.api.common.persistence.model.MtimeFilmInfoT">
+        <id column="UUID" property="uuid" />
+        <result column="film_id" property="filmId" />
+        <result column="film_en_name" property="filmEnName" />
+        <result column="film_score" property="filmScore" />
+        <result column="film_score_num" property="filmScoreNum" />
+        <result column="film_length" property="filmLength" />
+        <result column="biography" property="biography" />
+        <result column="director_id" property="directorId" />
+        <result column="film_imgs" property="filmImgs" />
+    </resultMap>
+
+    <select id="getHotFilms" resultType="com.stylefeng.guns.api.film.VO.FilmInfo">
+        select
+        film_id as filmId,
+        film_type as filmType,
+        img_address as imgAddress,
+        film_name as filmName,
+        a.film_score as filmScore
+        from mtime_film_t a left join mtime_film_info_t b
+        on a.UUID = b.UUID
+        where film_status =1
+    </select>
+
+
+    <select id="getSoonFilms" resultType="com.stylefeng.guns.api.film.VO.FilmInfo">
+        select
+        film_id as filmId,
+        film_type as filmType,
+        img_address as imgAddress,
+        film_name as filmName,
+        film_preSaleNum as expectNum,
+        film_time as showTime
+        from mtime_film_t a left join mtime_film_info_t b
+        on a.UUID = b.UUID
+        where film_status =2
+    </select>
+
+
+    <select id="getBoxRanking" resultType="com.stylefeng.guns.api.film.VO.FilmInfo">
+        select
+        film_id as filmId,
+        img_address as imgAddress,
+        film_name as filmName,
+        film_box_office as boxNum
+        from mtime_film_t a left join mtime_film_info_t b
+        on a.UUID = b.UUID
+        where film_status =1
+        order by film_box_office
+    </select>
+
+
+    <select id="getExpectRanking" resultType="com.stylefeng.guns.api.film.VO.FilmInfo">
+        select
+        film_id as filmId,
+        img_address as imgAddress,
+        film_name as filmName,
+        film_preSaleNum as expectNum
+        from mtime_film_t a left join mtime_film_info_t b
+        on a.UUID = b.UUID
+       where film_status =2
+    </select>
+
+
+    <select id="getTop" resultType="com.stylefeng.guns.api.film.VO.FilmInfo">
+        select
+        film_id as filmId,
+        img_address as imgAddress,
+        film_name as filmName,
+        a.film_score as score
+        from mtime_film_t a left join mtime_film_info_t b
+        on a.UUID = b.UUID
+    </select>
+</mapper>

@@ -27,14 +27,14 @@ public class JwtProperties {
 
     private String md5Key = "randomKey";
 
-    private List<String> ignorePaths;
+    private String ignorePath;
 
-    public List<String> getIgnorePaths() {
-        return ignorePaths;
+    public String getIgnorePath() {
+        return ignorePath;
     }
 
-    public void setIgnorePaths(List<String> ignorePaths) {
-        this.ignorePaths = ignorePaths;
+    public void setIgnorePath(String ignorePath) {
+        this.ignorePath = ignorePath;
     }
 
     public static String getJwtPrefix() {
