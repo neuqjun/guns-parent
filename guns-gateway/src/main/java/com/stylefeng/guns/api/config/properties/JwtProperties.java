@@ -3,6 +3,8 @@ package com.stylefeng.guns.api.config.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 /**
  * jwt相关配置
  *
@@ -24,6 +26,16 @@ public class JwtProperties {
     private String authPath = "auth";
 
     private String md5Key = "randomKey";
+
+    private List<String> ignorePaths;
+
+    public List<String> getIgnorePaths() {
+        return ignorePaths;
+    }
+
+    public void setIgnorePaths(List<String> ignorePaths) {
+        this.ignorePaths = ignorePaths;
+    }
 
     public static String getJwtPrefix() {
         return JWT_PREFIX;

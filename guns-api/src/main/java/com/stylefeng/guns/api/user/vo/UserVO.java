@@ -15,22 +15,30 @@ public class UserVO implements Serializable {
 
 
     private static final long serialVersionUID = -9153485667299839167L;
-    private String userName;
+
+    /**
+     * 用户ID
+     */
+    private Integer uuid;
+    /**
+     * 用户名
+     */
+    private String username;
     /**
      * 用户密码
      */
 
-    private String userPwd;
+    private String password;
     /**
      * 用户昵称
      */
 
-    private String nickName;
+    private String nickname;
     /**
      * 用户性别 0-男，1-女
      */
 
-    private Integer userSex;
+    private Integer sex;
     /**
      * 出生日期
      */
@@ -42,7 +50,7 @@ public class UserVO implements Serializable {
     /**
      * 用户手机号
      */
-    private String userPhone;
+    private String phone;
     /**
      * 用户住址
      */
@@ -50,7 +58,7 @@ public class UserVO implements Serializable {
     /**
      * 头像URL
      */
-    private String headUrl;
+    private String headAddress;
     /**
      * 个人介绍
      */
@@ -62,7 +70,7 @@ public class UserVO implements Serializable {
     /**
      * 创建时间
      */
-    private Date beginTime;
+    private Date creatTime;
     /**
      * 修改时间
      */

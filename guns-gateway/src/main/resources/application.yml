@@ -8,6 +8,7 @@ jwt:
   expiration: 604800      #7天 单位:秒
   auth-path: auth         #认证请求的路径
   md5-key: randomKey      #md5加密混淆key
+  ignore-path: user/regist
 
 server:
   port: 80 #项目端口
@@ -35,8 +36,10 @@ spring:
   application:
     name: guns-gateway
   dubbo:
-    server: true
     registry: zookeeper://localhost:2181
+    protocol:
+      port: 20880
+
 
 logging:
   level.root: info
