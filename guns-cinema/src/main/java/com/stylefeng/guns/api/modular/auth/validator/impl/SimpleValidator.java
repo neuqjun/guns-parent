@@ -1,8 +1,8 @@
 package com.stylefeng.guns.api.modular.auth.validator.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.stylefeng.guns.api.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.api.modular.auth.validator.dto.Credence;
+import org.springframework.stereotype.Service;
 
 /**
  * 直接验证账号密码是不是admin
