@@ -8,4 +8,17 @@
         <result column="show_name" property="showName" />
     </resultMap>
 
+    <resultMap id="AreaInfoMap" type="com.stylefeng.guns.api.cinema.vo.AreaInfo">
+        <id column="UUID" property="areaId" />
+        <result column="show_name" property="areaName" />
+    </resultMap>
+
+    <select id="getAreaInfoById" resultMap="AreaInfoMap">
+        select UUID,show_name from mtime_area_dict_t
+        <where>
+            <if test="areaId != null and areaId != 99">
+                UUID = #{areaId}
+            </if>
+        </where>
+    </select>
 </mapper>

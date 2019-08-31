@@ -8,4 +8,17 @@
         <result column="show_name" property="showName" />
     </resultMap>
 
+    <resultMap id="BrandInfoMap" type="com.stylefeng.guns.api.cinema.vo.BrandInfo">
+        <id column="UUID" property="brandId" />
+        <result column="show_name" property="brandName" />
+    </resultMap>
+
+    <select id="getBrandInfoById" resultMap="BrandInfoMap">
+        select UUID,show_name from mtime_brand_dict_t
+        <where>
+            <if test="brandId != null and brandId != 99">
+                UUID = #{brandId}
+            </if>
+        </where>
+    </select>
 </mapper>
