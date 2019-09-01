@@ -2,7 +2,6 @@ package com.stylefeng.guns.api.user;
 
 import com.stylefeng.guns.api.user.bean.RespBean;
 import com.stylefeng.guns.api.user.vo.UserVO;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -13,10 +12,12 @@ public interface UserService {
 
     Map<String,Object> login(UserVO userVO);
 
-    RespBean logout(HttpServletRequest request);
+    RespBean logout(String token);
 
-    Map<String,Object> getUserInfo(HttpServletRequest request);
+    UserVO getUserInfo(String token);
 
     Map<String,Object> updateUserInfo(UserVO userVO);
+
+    Boolean selectByUsernameAndPassword(String username, String password);
 
 }

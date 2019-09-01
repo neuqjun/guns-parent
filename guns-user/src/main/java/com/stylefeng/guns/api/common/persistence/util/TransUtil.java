@@ -4,6 +4,8 @@ import com.stylefeng.guns.api.common.persistence.model.MtimeUserT;
 import com.stylefeng.guns.api.user.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 
+import java.util.Date;
+
 public class TransUtil {
     public static MtimeUserT changeUserVOToMtimeUserT(UserVO userVO) {
         MtimeUserT mtimeUserT = new MtimeUserT();
@@ -19,8 +21,8 @@ public class TransUtil {
         mtimeUserT.setHeadUrl(userVO.getHeadAddress());
         mtimeUserT.setBiography(userVO.getBiography());
         mtimeUserT.setLifeState(userVO.getLifeState());
-        mtimeUserT.setBeginTime(userVO.getCreatTime());
-        mtimeUserT.setUpdateTime(userVO.getUpdateTime());
+        //mtimeUserT.setBeginTime(new Date());
+        mtimeUserT.setUpdateTime(new Date());
         return mtimeUserT;
     }
 
@@ -38,8 +40,8 @@ public class TransUtil {
         userVO.setHeadAddress(mtimeUserT.getHeadUrl());
         userVO.setBiography(mtimeUserT.getBiography());
         userVO.setLifeState(mtimeUserT.getLifeState());
-        userVO.setCreatTime(mtimeUserT.getBeginTime());
-        userVO.setUpdateTime(userVO.getUpdateTime());
+        userVO.setCreatTime(mtimeUserT.getBeginTime().getTime());
+        userVO.setUpdateTime(mtimeUserT.getUpdateTime().getTime());
         return userVO;
     }
 }

@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/film")
 public class FilmHomeController {
 
-    @Reference
+    @Reference(interfaceClass = FilmHomeService.class,check = false)
     private FilmHomeService filmHomeService;
 
     @RequestMapping("getIndex")

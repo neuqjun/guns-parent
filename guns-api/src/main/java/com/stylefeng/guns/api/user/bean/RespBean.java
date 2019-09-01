@@ -2,8 +2,10 @@ package com.stylefeng.guns.api.user.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class RespBean {
+public class RespBean implements Serializable {
     /**
      * 状态码
      */
