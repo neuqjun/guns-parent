@@ -15,4 +15,8 @@
         <result column="minimum_price" property="minimumPrice" />
     </resultMap>
 
+    <select id="selectByUUId" resultMap="BaseResultMap">
+        select UUID,cinema_name,cinema_address,cinema_phone,cinema_address from mtime_cinema_t where  UUID = #{cinemaId}
+    </select>
+
 </mapper>

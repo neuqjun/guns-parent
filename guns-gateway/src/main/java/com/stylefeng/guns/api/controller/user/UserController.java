@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-    @Reference
+    @Reference(check = false)
     private UserService userService;
 
-    @RequestMapping("/insert")
+    @RequestMapping(value = "/insert")
     public String insertUser(UserVO userVO) {
         Boolean insert = userService.insert(userVO);
         if (insert) {

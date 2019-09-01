@@ -13,5 +13,9 @@
         <result column="actors" property="actors" />
         <result column="img_address" property="imgAddress" />
     </resultMap>
+    
+    <select id="selectByFilmId" resultMap="BaseResultMap">
+        select * from mtime_hall_film_info_t where film_id =#{filmId}
+    </select>
 
 </mapper>

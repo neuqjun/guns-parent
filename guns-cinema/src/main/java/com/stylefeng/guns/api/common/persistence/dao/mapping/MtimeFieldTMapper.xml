@@ -14,4 +14,6 @@
         <result column="price" property="price" />
     </resultMap>
 
+
+
 </mapper>
