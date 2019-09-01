@@ -9,4 +9,17 @@
         <result column="seat_address" property="seatAddress" />
     </resultMap>
 
+    <resultMap id="HallTypeInfoMap" type="com.stylefeng.guns.api.cinema.vo.HalltypeInfo">
+        <id column="UUID" property="halltypeId" />
+        <result column="show_name" property="halltypeName" />
+    </resultMap>
+
+    <select id="getHalltypeInfoById" resultMap="HallTypeInfoMap">
+        select UUID,show_name from mtime_hall_dict_t
+        <where>
+            <if test="hallType != null and hallType != 99">
+                UUId = #{hallType}
+            </if>
+        </where>
+    </select>
 </mapper>
