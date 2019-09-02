@@ -13,7 +13,7 @@ public class UserController {
     @Reference(check = false)
     private UserService userService;
 
-    @RequestMapping("/insert")
+    @RequestMapping(value = "/insert")
     public String insertUser(UserVO userVO) {
         Boolean insert = userService.insert(userVO);
         if (insert) {
