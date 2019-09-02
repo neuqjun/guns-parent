@@ -2,6 +2,7 @@ package com.stylefeng.guns.api.modular.cinema;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.stylefeng.guns.api.cinema.exception.CinemaQueryException;
 import com.stylefeng.guns.api.cinema.service.CinemaService;
 import com.stylefeng.guns.api.cinema.vo.*;
 import com.stylefeng.guns.api.common.persistence.dao.*;
@@ -14,7 +15,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Service(interfaceClass = CinemaService.class)
@@ -153,35 +153,26 @@ public class CinemaServiceImpl implements CinemaService{
 
 
     @Override
-    public Map<String ,Object> getCinemasListInfo(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        try {
+    public CinemaListVo getCinemasListInfo(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
+        CinemaListVo cinemaListVo = new CinemaListVo();
+
             Page<CinemaInfo> page = new Page<>(nowPage, pageSize);
             List<CinemaInfo> cinemaInfoList = cinemaTMapper.selectCinemasList(page, brandId, districtId, hallType);
             long total = page.getTotal();
-            if(total <= 0) {
-                hashMap.put("status", 1);
-                hashMap.put("msg", "影院信息查询失败");
-                return hashMap;
+            if(total < 1) {
+                throw new CinemaQueryException("数据数量为0");
             } else {
-                hashMap.put("status", 0);
-                hashMap.put("nowPage", page.getCurrent());
-                hashMap.put("totalPage", page.getPages());
-                hashMap.put("data", cinemaInfoList);
-                return hashMap;
+                cinemaListVo.setStatus(0);
+                cinemaListVo.setNowPage(page.getCurrent());
+                cinemaListVo.setTotalPage(page.getPages());
+                cinemaListVo.setData(cinemaInfoList);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            hashMap.put("status", 999);
-            hashMap.put("msg", "系统出现异常，请联系管理员");
-            return hashMap;
-        }
+        return cinemaListVo;
     }
 
     @Override
-    public Map<String, Object> getConditionInfo(Integer brandId, Integer hallType, Integer areaId) {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        try {
+    public CinemaConditionVo getConditionInfo(Integer brandId, Integer hallType, Integer areaId) {
+        CinemaConditionVo cinemaConditionVo = new CinemaConditionVo();
             List<BrandInfo> brandInfoList = brandDictTMapper.getBrandInfoById(brandId);
             List<HalltypeInfo> halltypeInfoList = hallDictTMapper.getHalltypeInfoById(hallType);
             List<AreaInfo> areaInfoList = areaDictTMapper.getAreaInfoById(areaId);
@@ -202,23 +193,15 @@ public class CinemaServiceImpl implements CinemaService{
                         areaInfo.setIsActive(true);
                     }
                 }
-                hashMap.put("status", 0);
+                cinemaConditionVo.setStatus(0);
                 HashMap<String, Object> dataMap = new HashMap<>();
                 dataMap.put("brandList", brandInfoList);
                 dataMap.put("halltypeInfoList", halltypeInfoList);
                 dataMap.put("areaInfoList", areaInfoList);
-                hashMap.put("data", dataMap);
-                return hashMap;
+                cinemaConditionVo.setData(dataMap);
             } else {
-                hashMap.put("status", 1);
-                hashMap.put("msg", "影院信息查询失败");
-                return hashMap;
+                throw new CinemaQueryException("若干数据数量为0");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            hashMap.put("status", 999);
-            hashMap.put("msg", "系统出现异常，请联系管理员");
-            return hashMap;
-        }
+        return cinemaConditionVo;
     }
 }

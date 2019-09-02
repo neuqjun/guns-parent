@@ -3,6 +3,8 @@ package com.stylefeng.guns.api.modular.cinema;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.stylefeng.guns.api.cinema.service.CinemaService;
+import com.stylefeng.guns.api.cinema.vo.CinemaConditionVo;
+import com.stylefeng.guns.api.cinema.vo.CinemaListVo;
 import com.stylefeng.guns.api.cinema.vo.FieldDataVo;
 import com.stylefeng.guns.api.modular.cinema.vo.CinemaResponseVo;
 import com.stylefeng.guns.api.cinema.vo.DataVo;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/cinema")
@@ -39,15 +39,14 @@ public class CinemaController {
     }
 
     @RequestMapping(value = "getCinemas", method = RequestMethod.GET)
-    public Map<String, Object> getCinemasList(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
-        Map<String, Object> cinemasResultMap = cinemaService.getCinemasListInfo(brandId, districtId, hallType, pageSize, nowPage);
-        return cinemasResultMap;
+    public CinemaListVo getCinemasList(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
+        CinemaListVo cinemaListVo = cinemaService.getCinemasListInfo(brandId, districtId, hallType, pageSize, nowPage);
+        return cinemaListVo;
     }
 
     @RequestMapping(value = "getCondition", method = RequestMethod.GET)
-    public Map<String, Object> getCondition(Integer brandId, Integer hallType, Integer areaId) {
-        Map<String, Object> cinemaCondition = cinemaService.getConditionInfo(brandId, hallType, areaId);
-        return cinemaCondition;
+    public CinemaConditionVo getCondition(Integer brandId, Integer hallType, Integer areaId) {
+        CinemaConditionVo cinemaConditionVo = cinemaService.getConditionInfo(brandId, hallType, areaId);
+        return cinemaConditionVo;
     }
-
 }
