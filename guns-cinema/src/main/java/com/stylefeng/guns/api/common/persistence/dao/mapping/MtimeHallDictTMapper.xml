@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stylefeng.guns.api.common.persistence.dao.MtimeHallDictTMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.api.common.persistence.model.MtimeHallDictT">
+        <id column="UUID" property="uuid" />
+        <result column="show_name" property="showName" />
+        <result column="seat_address" property="seatAddress" />
+    </resultMap>
+
+    <resultMap id="HallTypeInfoMap" type="com.stylefeng.guns.api.cinema.vo.HalltypeInfo">
+        <id column="UUID" property="halltypeId" />
+        <result column="show_name" property="halltypeName" />
+    </resultMap>
+
+    <select id="getHalltypeInfoById" resultMap="HallTypeInfoMap">
+        select UUID,show_name from mtime_hall_dict_t
+        <where>
+            <if test="hallType != null and hallType != 99">
+                UUId = #{hallType}
+            </if>
+        </where>
+    </select>
+</mapper>
