@@ -2,6 +2,7 @@ package com.stylefeng.guns.api.common.persistence.dao;
 
 import com.stylefeng.guns.api.common.persistence.model.MtimeCatDictT;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface MtimeCatDictTMapper extends BaseMapper<MtimeCatDictT> {
 
+    String[] selectShowNameById(@Param("split") String[] split);
 }
