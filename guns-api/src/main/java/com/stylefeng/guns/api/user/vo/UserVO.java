@@ -70,11 +70,11 @@ public class UserVO implements Serializable {
     /**
      * 创建时间
      */
-    private Date creatTime;
+    private Long creatTime;
     /**
      * 修改时间
      */
-    private Date updateTime;
+    private Long updateTime;
 
 
 }

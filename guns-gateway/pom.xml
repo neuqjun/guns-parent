@@ -53,6 +53,11 @@
         </dependency>
         <dependency>
             <groupId>com.stylefeng.guns</groupId>
+            <artifactId>guns-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.stylefeng.guns</groupId>
             <artifactId>guns-user</artifactId>
             <version>0.0.1</version>
             <scope>compile</scope>

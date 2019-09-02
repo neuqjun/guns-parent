@@ -1,5 +1,6 @@
 package com.stylefeng.guns.api.film;
 
+
 import com.stylefeng.guns.api.film.VO.*;
 
 import java.util.ArrayList;
@@ -14,4 +15,5 @@ public interface FilmService {
     DetailData searchById(String id);
 
     DetailData searchByName(String id);
+
 }
