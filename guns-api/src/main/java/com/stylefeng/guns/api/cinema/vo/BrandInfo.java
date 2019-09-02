@@ -13,5 +13,5 @@ public class BrandInfo implements Serializable {
 
     private String brandName;
 
-    private boolean isActive;
+    private boolean isActive = false;
 }

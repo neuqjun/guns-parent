@@ -12,5 +12,5 @@ public class AreaInfo implements Serializable {
 
     private String areaName;
 
-    private Boolean isActive;
+    private Boolean isActive = false;
 }

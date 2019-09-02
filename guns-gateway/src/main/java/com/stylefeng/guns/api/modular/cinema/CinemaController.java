@@ -3,7 +3,6 @@ package com.stylefeng.guns.api.modular.cinema;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.stylefeng.guns.api.cinema.service.CinemaService;
-import com.stylefeng.guns.api.cinema.service.CinemasService;
 import com.stylefeng.guns.api.cinema.vo.FieldDataVo;
 import com.stylefeng.guns.api.modular.cinema.vo.CinemaResponseVo;
 import com.stylefeng.guns.api.cinema.vo.DataVo;
@@ -20,9 +19,6 @@ public class CinemaController {
 
     @Reference(interfaceClass = CinemaService.class,check = false)
     private CinemaService cinemaService;
-
-    @Reference(interfaceClass = CinemasService.class, check = false)
-    CinemasService cinemasService;
 
     @RequestMapping(value = "/getFieldInfo",method = RequestMethod.GET)
     public CinemaResponseVo getDataInfo(@RequestParam(name = "cinemaId",required = true) String cinemaId,
@@ -42,17 +38,15 @@ public class CinemaController {
         return  cinemaResponseVo;
     }
 
-
-
     @RequestMapping(value = "getCinemas", method = RequestMethod.GET)
     public Map<String, Object> getCinemasList(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
-        Map<String, Object> cinemasResultMap = cinemasService.getCinemasListInfo(brandId, districtId, hallType, pageSize, nowPage);
+        Map<String, Object> cinemasResultMap = cinemaService.getCinemasListInfo(brandId, districtId, hallType, pageSize, nowPage);
         return cinemasResultMap;
     }
 
     @RequestMapping(value = "getCondition", method = RequestMethod.GET)
     public Map<String, Object> getCondition(Integer brandId, Integer hallType, Integer areaId) {
-        Map<String, Object> cinemaCondition = cinemasService.getConditionInfo(brandId, hallType, areaId);
+        Map<String, Object> cinemaCondition = cinemaService.getConditionInfo(brandId, hallType, areaId);
         return cinemaCondition;
     }
 
