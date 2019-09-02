@@ -17,4 +17,17 @@
         <result column="order_status" property="orderStatus" />
     </resultMap>
 
+    <select id="getOrderByUserId" resultType="com.stylefeng.guns.api.order.VO.OrderVO">
+        select a.UUID as orderId,
+        film_name as filmName,
+        begin_time as fieldTime,
+        cinema_name as cinemaName,
+        seats_name as seatsName,
+        order_price as orderPrice,
+        order_status as orderStatus
+        from mooc_order_t a LEFT JOIN mtime_film_t b ON a.film_id = b.UUID
+        left join mtime_field_t c on a.field_id = c.UUID
+        left join mtime_cinema_t d on a.cinema_id = d.UUID
+        where order_user = ${userId}
+    </select>
 </mapper>
