@@ -13,5 +13,5 @@ public class HalltypeInfo implements Serializable {
 
     private String halltypeName;
 
-    private Boolean isActive;
+    private Boolean isActive = false;
 }
