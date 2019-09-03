@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author ll
- * @since 2019-09-02
  */
 public interface MoocOrder2017TMapper extends BaseMapper<MoocOrder2017T> {
 
