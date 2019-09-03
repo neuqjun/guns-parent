@@ -16,4 +16,5 @@ import org.apache.ibatis.annotations.Param;
 public interface MtimeFieldTMapper extends BaseMapper<MtimeFieldT> {
 
 
+    String isSelectSeat(int fieldId);
 }
