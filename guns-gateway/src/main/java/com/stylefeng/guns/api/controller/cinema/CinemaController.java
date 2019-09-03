@@ -1,4 +1,4 @@
-package com.stylefeng.guns.api.modular.cinema;
+package com.stylefeng.guns.api.controller.cinema;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -6,7 +6,7 @@ import com.stylefeng.guns.api.cinema.service.CinemaService;
 import com.stylefeng.guns.api.cinema.vo.CinemaConditionVo;
 import com.stylefeng.guns.api.cinema.vo.CinemaListVo;
 import com.stylefeng.guns.api.cinema.vo.FieldDataVo;
-import com.stylefeng.guns.api.modular.cinema.vo.CinemaResponseVo;
+import com.stylefeng.guns.api.controller.cinema.vo.CinemaResponseVo;
 import com.stylefeng.guns.api.cinema.vo.DataVo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,8 +39,8 @@ public class CinemaController {
     }
 
     @RequestMapping(value = "getCinemas", method = RequestMethod.GET)
-    public CinemaListVo getCinemasList(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
-        CinemaListVo cinemaListVo = cinemaService.getCinemasListInfo(brandId, districtId, hallType, pageSize, nowPage);
+    public CinemaListVo getCinemasList(Integer brandId, Integer areaId, Integer hallType, Integer pageSize, Integer nowPage) {
+        CinemaListVo cinemaListVo = cinemaService.getCinemasListInfo(brandId, areaId, hallType, pageSize, nowPage);
         return cinemaListVo;
     }
 

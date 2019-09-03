@@ -11,7 +11,7 @@ public interface CinemaService {
 
     FieldDataVo getFieldInfo(String cinemaId);
 
-    CinemaListVo getCinemasListInfo(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage);
+    CinemaListVo getCinemasListInfo(Integer brandId, Integer areaId, Integer hallType, Integer pageSize, Integer nowPage);
 
     CinemaConditionVo getConditionInfo(Integer brandId, Integer hallType, Integer areaId);
 }

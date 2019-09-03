@@ -19,6 +19,7 @@
         <module>guns-film</module>
         <module>guns-api</module>
         <module>guns-order</module>
+        <module>guns-alipay</module>
     </modules>
 
     <parent>
@@ -170,6 +171,13 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <!--redis 依赖-->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.9.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

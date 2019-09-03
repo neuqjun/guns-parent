@@ -5,7 +5,7 @@ import com.stylefeng.guns.api.GunsCinemaApplication;
 import com.stylefeng.guns.api.cinema.service.CinemaService;
 import com.stylefeng.guns.api.cinema.vo.DataVo;
 import com.stylefeng.guns.api.cinema.vo.FieldDataVo;
-import com.stylefeng.guns.api.modular.cinema.CinemaServiceImpl;
+import com.stylefeng.guns.api.controller.cinema.CinemaServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

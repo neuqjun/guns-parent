@@ -17,7 +17,7 @@ import java.util.ArrayList;
 @RequestMapping("/film")
 public class FilmController {
 
-    @Reference
+    @Reference(check = false)
     private FilmService filmServce;
 
     @RequestMapping("getFilms")

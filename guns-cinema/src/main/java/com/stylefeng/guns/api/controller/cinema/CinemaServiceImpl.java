@@ -1,4 +1,4 @@
-package com.stylefeng.guns.api.modular.cinema;
+package com.stylefeng.guns.api.controller.cinema;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -153,11 +153,11 @@ public class CinemaServiceImpl implements CinemaService{
 
 
     @Override
-    public CinemaListVo getCinemasListInfo(Integer brandId, Integer districtId, Integer hallType, Integer pageSize, Integer nowPage) {
+    public CinemaListVo getCinemasListInfo(Integer brandId, Integer areaId, Integer hallType, Integer pageSize, Integer nowPage) {
         CinemaListVo cinemaListVo = new CinemaListVo();
 
             Page<CinemaInfo> page = new Page<>(nowPage, pageSize);
-            List<CinemaInfo> cinemaInfoList = cinemaTMapper.selectCinemasList(page, brandId, districtId, hallType);
+            List<CinemaInfo> cinemaInfoList = cinemaTMapper.selectCinemasList(page, brandId, areaId, hallType);
             long total = page.getTotal();
             if(total < 1) {
                 throw new CinemaQueryException("数据数量为0");

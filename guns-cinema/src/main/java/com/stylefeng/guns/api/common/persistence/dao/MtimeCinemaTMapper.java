@@ -19,5 +19,5 @@ import java.util.List;
 public interface MtimeCinemaTMapper extends BaseMapper<MtimeCinemaT> {
     MtimeCinemaT selectByUUId(@Param("cinemaId") String cinemaId);
 
-    List<CinemaInfo> selectCinemasList(Page<CinemaInfo> page, @Param("brandId") Integer brandId, @Param("areaId") Integer districtId, @Param("hallId") Integer hallType);
+    List<CinemaInfo> selectCinemasList(Page<CinemaInfo> page, @Param("brandId") Integer brandId, @Param("areaId") Integer areaId, @Param("hallId") Integer hallType);
 }

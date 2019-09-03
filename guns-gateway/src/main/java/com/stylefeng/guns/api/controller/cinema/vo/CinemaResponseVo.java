@@ -1,4 +1,4 @@
-package com.stylefeng.guns.api.modular.cinema.vo;
+package com.stylefeng.guns.api.controller.cinema.vo;
 
 import lombok.Data;
 
