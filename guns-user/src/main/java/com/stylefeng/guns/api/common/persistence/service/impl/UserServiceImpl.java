@@ -2,7 +2,6 @@ package com.stylefeng.guns.api.common.persistence.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.stylefeng.guns.api.common.persistence.util.TransUtil;
-import com.stylefeng.guns.api.config.properties.JwtProperties;
 import com.stylefeng.guns.api.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.api.user.UserService;
 import com.stylefeng.guns.api.user.bean.RespBean;
@@ -21,31 +20,37 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     private MtimeUserTMapper mtimeUserTMapper;
-
-    @Autowired
-    private JwtProperties jwtProperties;
-
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+
     @Override
     public RespBean insert(UserVO userVO) {
-        MtimeUserT mtimeUserT = TransUtil.changeUserVOToMtimeUserT(userVO);
         RespBean respBean = new RespBean();
-        String encryptPassword = MD5Util.encrypt(mtimeUserT.getUserPwd());
-        mtimeUserT.setUserPwd(encryptPassword);
-        mtimeUserT.setBeginTime(new Date());
-        mtimeUserT.setUpdateTime(new Date());
-        Integer affectedRows = mtimeUserTMapper.insert(mtimeUserT);
-        if (affectedRows == 1) {
-            respBean.setStatus(0);
-            respBean.setMsg("注册成功");
-            return respBean;
-        } else if (affectedRows != 0) {
-            respBean.setStatus(1);
-            respBean.setMsg("用户已存在");
-            return respBean;
-        } else {
+        try {
+            MtimeUserT mtimeUserT = TransUtil.changeUserVOToMtimeUserT(userVO);
+            Boolean aBoolean = selectByUsername(userVO.getUsername());
+            if (aBoolean) {
+                respBean.setStatus(1);
+                respBean.setMsg("用户已存在");
+                return respBean;
+            } else {
+                String encryptPassword = MD5Util.encrypt(mtimeUserT.getUserPwd());
+                mtimeUserT.setUserPwd(encryptPassword);
+                mtimeUserT.setBeginTime(new Date());
+                mtimeUserT.setUpdateTime(new Date());
+                Integer affectedRows = mtimeUserTMapper.insert(mtimeUserT);
+                if (affectedRows == 1) {
+                    respBean.setStatus(0);
+                    respBean.setMsg("注册成功");
+                    return respBean;
+                } else {
+                    respBean.setStatus(999);
+                    respBean.setMsg("系统异常，请联系管理员");
+                    return respBean;
+                }
+            }
+        } catch (Exception e) {
             respBean.setStatus(999);
             respBean.setMsg("系统异常，请联系管理员");
             return respBean;
@@ -54,14 +59,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RespBean checkUsername(UserVO userVO) {
-        MtimeUserT mtimeUserT = TransUtil.changeUserVOToMtimeUserT(userVO);
         RespBean respBean = new RespBean();
-        MtimeUserT mtimeUserT1 = mtimeUserTMapper.selectOne(mtimeUserT);
-        if (mtimeUserT1 != null) {
+        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsername(userVO.getUsername());
+        if (mtimeUserT == null) {
             respBean.setStatus(0);
             respBean.setMsg("验证成功");
             return respBean;
-        } else if (mtimeUserT1 == null) {
+        } else if (mtimeUserT != null) {
             respBean.setStatus(1);
             respBean.setMsg("用户已存在");
             return respBean;
@@ -73,51 +77,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String,Object> login(UserVO userVO) {
-        MtimeUserT mtimeUserT = TransUtil.changeUserVOToMtimeUserT(userVO);
-        HashMap<String, Object> map = new HashMap<>();
-        HashMap<String, Object> data = new HashMap<>();
-        mtimeUserT.setUserPwd(MD5Util.encrypt(mtimeUserT.getUserPwd()));
-        MtimeUserT mtimeUserT1 = mtimeUserTMapper.selectOne(mtimeUserT);
-        if (mtimeUserT1 != null) {
-            map.put("status", 0);
-            data.put("randomKey", "xxxxxx");
-            data.put("token", "这里是一长串字符");
-            map.put("data", data);
-            return map;
-        } else if (mtimeUserT1 == null) {
-            map.put("status", 1);
-            map.put("msg", "用户名或密码错误");
-            return map;
-        } else {
-            map.put("status", 999);
-            map.put("msg", "系统异常，请联系管理员");
-            return map;
-        }
+    public String login(UserVO userVO) {
+        String username = userVO.getUsername();
+        String password = userVO.getPassword();
+        String encrypt = MD5Util.encrypt(password);
+        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsernameAndPassword(username,encrypt);
+        String userId = Integer.toString(mtimeUserT.getUuid());
+        return userId;
     }
+
+
 
     @Override
     public RespBean logout(String token) {
-        //从 request中取出 Authorization这个请求头，进而获得token(之前在过滤器中已经鉴权了)
-        //从token信息中取出用户信息等，并销毁token(比如设置成已过期)
-        RespBean respBean = new RespBean();
-        /*try {
-            String requestHeader = request.getHeader(jwtProperties.getHeader());
-            if (requestHeader == null) {
-                respBean.setStatus(0);
-                respBean.setMsg("成功退出");
-                return respBean;
-            } else {
-                respBean.setStatus(1);
-                respBean.setMsg("退出失败，用户尚未登录");
-                return respBean;
-            }
-        } catch (Exception e) {
-                respBean.setStatus(999);
-                respBean.setMsg("系统异常，请联系管理员");
-                return respBean;
-        }*/
-        return respBean;
+        return null;
     }
 
     @Override
@@ -156,7 +129,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
+    /*@Override
     public Boolean selectByUsernameAndPassword(String username, String password) {
         MtimeUserT mtimeUserT = new MtimeUserT();
         mtimeUserT.setUserName(username);
@@ -167,5 +140,21 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }*/
+
+    @Override
+    public Boolean selectByUsername(String username) {
+        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsername(username);
+        if (mtimeUserT != null) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public UserVO selectByUsernameAndPassword(String username, String password) {
+        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsernameAndPassword(username, password);
+        UserVO userVO = TransUtil.changeMtimeUserTToUserVO(mtimeUserT);
+        return userVO;
     }
 }

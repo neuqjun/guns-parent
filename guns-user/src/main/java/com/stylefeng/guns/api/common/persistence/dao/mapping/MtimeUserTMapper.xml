@@ -20,4 +20,18 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select UUID,user_name,user_pwd,nick_name,user_sex,birthday,email,user_phone,`address`,
+        head_url,biography,life_state,begin_time,update_time
+        from mtime_user_t
+        where user_name = #{username}
+    </select>
+
+    <select id="selectByUsernameAndPassword" resultMap="BaseResultMap">
+        select UUID,user_name,user_pwd,nick_name,user_sex,birthday,email,user_phone,`address`,
+        head_url,biography,life_state,begin_time,update_time
+        from mtime_user_t
+        where user_name = #{username}
+        and user_pwd = #{password}
+    </select>
 </mapper>

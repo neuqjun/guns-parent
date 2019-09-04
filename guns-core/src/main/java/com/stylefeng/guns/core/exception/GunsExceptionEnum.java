@@ -28,7 +28,12 @@ public enum GunsExceptionEnum implements ServiceExceptionEnum {
      * 错误的请求
      */
     REQUEST_NULL(400, "请求有错误"),
-    SERVER_ERROR(500, "服务器异常");
+    SERVER_ERROR(500, "服务器异常"),
+
+    /**
+     * token 过期，需重新登录
+     */
+    TOKEN_EXPIRE(400,"当前登录已过期");
 
     GunsExceptionEnum(int code, String message) {
         this.code = code;

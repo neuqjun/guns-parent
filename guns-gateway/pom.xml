@@ -57,6 +57,13 @@
             <version>0.0.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- 导入 redis 依赖包 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
