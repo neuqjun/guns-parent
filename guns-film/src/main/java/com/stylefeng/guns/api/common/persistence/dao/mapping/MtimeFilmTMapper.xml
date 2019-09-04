@@ -1,6 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stylefeng.guns.api.common.persistence.dao.MtimeFilmTMapper">
+    <select id="searchById" resultMap="searchMap">
+        select f.film_name,
+        f.film_type,
+        f.img_address,
+        f.film_score,
+        f.film_preSaleNum,
+        f.film_box_office,
+        f.film_source,
+        f.film_cats,
+        f.film_area,
+        f.film_date,
+        f.film_time,
+        f.film_status,
+        i.film_id,
+        i.film_en_name,
+        i.film_score,
+        i.film_score_num,
+        i.film_length,
+        i.biography,
+        i.director_id,
+        i.film_imgs,
+        a.actor_name,
+        a.actor_img,
+        fa.role_name
+      from mtime_film_t f left join mtime_film_info_t i on f.UUID = i.film_id
+      left join mtime_actor_t a on a.UUID = i.director_id
+      left join mtime_hall_film_info_t h on h.film_id = f.UUID
+      left join mtime_film_actor_t fa on fa.film_id = f.UUID
+      left join mtime_actor_t ac on fa.actor_id = ac.UUID
+      where f.UUID = #{id}
+    </select>
+    <select id="searchByName" resultMap="searchMap">
+        select f.film_name,
+        f.film_type,
+        f.img_address,
+        f.film_score,
+        f.film_preSaleNum,
+        f.film_box_office,
+        f.film_source,
+        f.film_cats,
+        f.film_area,
+        f.film_date,
+        f.film_time,
+        f.film_status,
+        i.film_id,
+        i.film_en_name,
+        i.film_score,
+        i.film_score_num,
+        i.film_length,
+        i.biography,
+        i.director_id,
+        i.film_imgs,
+        a.actor_name,
+        a.actor_img,
+        fa.role_name
+      from mtime_film_t f left join mtime_film_info_t i on f.UUID = i.film_id
+      left join mtime_actor_t a on a.UUID = i.director_id
+      left join mtime_hall_film_info_t h on h.film_name = f.film_name
+      left join mtime_film_actor_t fa on fa.film_id = f.UUID
+      left join mtime_actor_t ac on fa.actor_id = ac.UUID
+      where f.film_name = #{id}
+    </select>
+    <resultMap id="searchMap" type="com.stylefeng.guns.api.film.VO.DetailData">
+        <result column="film_name" property="filmName" />
+        <result column="film_en_name" property="filmEnName" />
+        <result column="img_address" property="imgAddress" />
+        <result column="film_score" property="score" />
+        <result column="film_score_num" property="scoreNum" />
+        <result column="film_box_office" property="totalBox" />
+        <result column="film_cats" property="filmCats" />
+        <result column="film_source" property="filmSource" />
+        <result column="film_length" property="filmLength" />
+        <result column="film_area" property="filmArea" />
+        <result column="film_time" property="filmTime" />
+        <result column="film_id" property="filmId" />
+        <result column="film_imgs" property="filmImgs" />
+        <association property="info04" javaType="com.stylefeng.guns.api.film.VO.Info">
+            <result column="biography" property="biography" />
+            <association property="actors" javaType="com.stylefeng.guns.api.film.VO.Actorss">
+                <association property="director" javaType="com.stylefeng.guns.api.film.VO.DirectorDetail">
+                    <result column="actor_name" property="directorName"/>
+                    <result column="actor_img" property="imgAddress"/>
+                </association>
+                <collection property="actors" ofType="com.stylefeng.guns.api.film.VO.ActorDrtail">
+                    <result column="role_name" property="roleName"/>
+                    <result column="actor_name" property="directorName"/>
+                    <result column="actor_img" property="imgAddress"/>
+                </collection>
+            </association>
+        </association>
+        <association property="imgVO" javaType="com.stylefeng.guns.api.film.VO.ImgVO">
+            <result column="img_address" property="mainImg" />
+        </association>
+
+    </resultMap>
+
+
+
+
+
+
+
+
+
+    <select id="countFilm" resultType="int">
+        select count(*) from mtime_film_t where film_status = #{showType}
+        <if test="catId != null">AND film_cats like #{catId} </if>
+        <if test="sourceId != 99">AND film_source = #{sourceId} </if>
+        <if test="yearId != 99">AND film_date = #{yearId} </if>
+    </select>
+
+
+    <select id="queryFilmList" resultMap="queryFilmListMap">
+        select film_name,
+        film_type,
+        img_address,
+        film_score,
+        film_preSaleNum,
+        film_box_office,
+        film_source,
+        film_cats,
+        film_area,
+        film_date,
+        film_time,
+        film_status from mtime_film_t where film_status = #{showType}
+        <if test="sourceId != 99">AND film_source = #{sourceId} </if>
+        <if test="catId != null">AND film_cats like #{catId} </if>
+        <if test="yearId != 99">AND film_date = #{yearId} </if>
+        <if test="sortId == 1">order by film_box_office desc</if>
+        <if test="sortId == 2">order by film_time desc</if>
+        <if test="sortId == 3">order by film_score desc</if>
+    </select>
+    <resultMap id="queryFilmListMap" type="com.stylefeng.guns.api.film.VO.FilmT">
+        <result column="UUID" property="filmId" />
+        <result column="film_name" property="filmName" />
+        <result column="film_type" property="filmType" />
+        <result column="img_address" property="imgAddress" />
+        <result column="film_score" property="filmScore" />
+        <result column="film_score" property="score" />
+        <result column="film_preSaleNum" property="expectNum" />
+        <result column="film_box_office" property="boxNum" />
+        <result column="film_cats" property="filmCats" />
+        <result column="film_time" property="showTime" />
+    </resultMap>
+
+
+
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.stylefeng.guns.api.common.persistence.model.MtimeFilmT">

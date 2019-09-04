@@ -6,7 +6,7 @@ import java.util.Map;
 public interface UserService {
     RespBean insert(UserVO userVO);
 
-    RespBean checkUsername(UserVO userVO);
+    RespBean checkUsername(String username);
 
     String login(UserVO userVO);
 

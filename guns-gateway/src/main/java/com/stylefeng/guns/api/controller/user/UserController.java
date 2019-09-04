@@ -32,14 +32,20 @@ public class UserController {
     private Jedis jedis;
 
     @RequestMapping(value = "/user/register",method = RequestMethod.POST)
-    public RespBean register(UserVO userVO) {
+    public RespBean register(String username,String password,String mobile,String email,String address) {
+        UserVO userVO = new UserVO();
+        userVO.setUsername(username);
+        userVO.setPassword(password);
+        userVO.setPhone(mobile);
+        userVO.setEmail(email);
+        userVO.setAddress(address);
         RespBean respBean = userService.insert(userVO);
         return respBean;
     }
 
     @RequestMapping(value = "/user/check", method = RequestMethod.POST)
-    public RespBean check(UserVO userVO) {
-        RespBean respBean = userService.checkUsername(userVO);
+    public RespBean check(String  username) {
+        RespBean respBean = userService.checkUsername(username);
         return respBean;
     }
 

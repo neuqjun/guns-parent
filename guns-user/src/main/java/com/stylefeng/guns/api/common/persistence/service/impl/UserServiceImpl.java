@@ -58,9 +58,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public RespBean checkUsername(UserVO userVO) {
+    public RespBean checkUsername(String username) {
         RespBean respBean = new RespBean();
-        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsername(userVO.getUsername());
+        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsername(username);
         if (mtimeUserT == null) {
             respBean.setStatus(0);
             respBean.setMsg("验证成功");

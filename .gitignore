@@ -6,10 +6,11 @@ target/
 logs/
 
 # Log file
-*.log
 
 # BlueJ files
 *.ctxt
+*.log
+*.log.*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

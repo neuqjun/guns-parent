@@ -1,4 +1,4 @@
-package com.stylefeng.guns.api.controller.filmcontroller;
+package com.stylefeng.guns.api.controller.film;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;

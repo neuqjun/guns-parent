@@ -37,6 +37,12 @@ public class MtimeActorT extends Model<MtimeActorT> {
     private String actorImg;
 
 
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+
     public Integer getUuid() {
         return uuid;
     }

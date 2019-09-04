@@ -41,7 +41,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String servletPath = request.getServletPath();
+        /*String servletPath = request.getServletPath();
 
         if (servletPath.equals("/" + jwtProperties.getAuthPath()) || servletPath.equals("/" + jwtProperties.getRegisterPath())) {
             chain.doFilter(request, response);
@@ -53,12 +53,12 @@ public class AuthFilter extends OncePerRequestFilter {
         int expireSeconds = 3600 * 6;
         if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
             authToken = requestHeader.substring(7);
-            /*从 redis中取出userId,判断是否已登录或登录是否过期*/
+            *//*从 redis中取出userId,判断是否已登录或登录是否过期*//*
             String userId = jedis.get(authToken);
             if (userId == null) {
                 throw new GunsException(GunsExceptionEnum.TOKEN_EXPIRE);
             } else {
-                /* 刷新过期时间*/
+                *//* 刷新过期时间*//*
                 jedis.expire(authToken, expireSeconds);
             }
             //验证token是否过期,包含了验证jwt是否正确
@@ -77,7 +77,8 @@ public class AuthFilter extends OncePerRequestFilter {
             //header没有带Bearer字段
             RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
             return;
-        }
+        }*/
         chain.doFilter(request, response);
+        return;
     }
 }

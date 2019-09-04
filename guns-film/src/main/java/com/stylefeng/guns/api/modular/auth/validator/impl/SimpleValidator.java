@@ -1,8 +1,9 @@
 package com.stylefeng.guns.api.modular.auth.validator.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.stylefeng.guns.api.modular.auth.validator.IReqValidator;
 import com.stylefeng.guns.api.modular.auth.validator.dto.Credence;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * 直接验证账号密码是不是admin
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
  * @date 2017-08-23 12:34
  */
 @Service
+@Component
 public class SimpleValidator implements IReqValidator {
 
     private static String USER_NAME = "admin";
