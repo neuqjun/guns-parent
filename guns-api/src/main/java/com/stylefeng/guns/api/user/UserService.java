@@ -8,7 +8,7 @@ public interface UserService {
 
     RespBean checkUsername(String username);
 
-    String login(UserVO userVO);
+    String login(String userName,String password);
 
     RespBean logout(String token);
 

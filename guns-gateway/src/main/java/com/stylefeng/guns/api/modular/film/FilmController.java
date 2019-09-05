@@ -55,6 +55,9 @@ public class FilmController {
         detailResult.setStatus(0);
         detailResult.setImgPre("http://img.meetingshop.cn/");
         detailResult.setData(detailData);
+        detailResult.setMsg("");
+        detailResult.setNowPage("");
+        detailResult.setTotalPage("");
         return detailResult;
     }
 }

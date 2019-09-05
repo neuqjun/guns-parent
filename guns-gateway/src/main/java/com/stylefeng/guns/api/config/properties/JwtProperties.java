@@ -27,24 +27,14 @@ public class JwtProperties {
 
     private String md5Key = "randomKey";
 
-    private String registerPath;
+    private String checkPaths;
 
-    private String loginPath;
-
-    public String getRegisterPath() {
-        return registerPath;
+    public String getCheckPaths() {
+        return checkPaths;
     }
 
-    public void setRegisterPath(String registerPath) {
-        this.registerPath = registerPath;
-    }
-
-    public String getLoginPath() {
-        return loginPath;
-    }
-
-    public void setLoginPath(String loginPath) {
-        this.loginPath = loginPath;
+    public void setCheckPaths(String checkPaths) {
+        this.checkPaths = checkPaths;
     }
 
     public static String getJwtPrefix() {

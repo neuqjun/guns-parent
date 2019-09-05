@@ -9,6 +9,10 @@ public class CinemaListVo implements Serializable {
 
     private Integer status;
 
+    private String imgPre;
+
+    private String msg;
+
     private Integer nowPage;
 
     private Long totalPage;

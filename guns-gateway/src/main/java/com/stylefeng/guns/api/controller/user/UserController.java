@@ -7,6 +7,7 @@ import com.stylefeng.guns.api.modular.auth.util.JwtTokenUtil;
 import com.stylefeng.guns.api.user.bean.RespBean;
 import com.stylefeng.guns.api.user.UserService;
 import com.stylefeng.guns.api.user.vo.UserVO;
+import com.stylefeng.guns.api.util.TokenUitls;
 import com.stylefeng.guns.core.exception.GunsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,15 +51,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public Map<String, Object> login(UserVO userVO) {
+    public Map<String, Object> login(String userName, String password) {
         // Boolean validate = userService.selectByUsernameAndPassword(authRequest.getUsername(), authRequest.getPassword());
         HashMap<String, Object> map = new HashMap<>();
         String userId = null;
-        userId = userService.login(userVO);
-        int expireSeconds = 3600*6; // redis中 token过期时间
+        userId = userService.login(userName,password);
+        int expireSeconds = 3600*6; // 设置 redis中 token过期时间
         if (userId != null) {
             final String randomKey = jwtTokenUtil.getRandomKey();
-            final String token = jwtTokenUtil.generateToken(userVO.getUsername(), randomKey);
+            final String token = jwtTokenUtil.generateToken(userName, randomKey);
             jedis.set(token, userId);
             jedis.expire(token, expireSeconds);
             //return ResponseEntity.ok(new AuthResponse(token, randomKey));
@@ -79,10 +80,7 @@ public class UserController {
         RespBean respBean = new RespBean();
         try {
             String requestHeader = request.getHeader(jwtProperties.getHeader());
-            String authToken = null;
-            if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
-                authToken = requestHeader.substring(7);
-            }
+            String authToken = TokenUitls.getToken(request);
             String userToken = jedis.get(authToken);
             if (userToken != null) {
                 jedis.del(authToken);

@@ -166,6 +166,8 @@ public class CinemaServiceImpl implements CinemaService{
                 cinemaListVo.setNowPage(page.getCurrent());
                 cinemaListVo.setTotalPage(page.getPages());
                 cinemaListVo.setData(cinemaInfoList);
+                cinemaListVo.setImgPre("");
+                cinemaListVo.setMsg("http://img.meetingshop.cn/");
             }
         return cinemaListVo;
     }

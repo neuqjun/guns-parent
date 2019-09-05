@@ -3,20 +3,21 @@
 <mapper namespace="com.stylefeng.guns.api.common.persistence.dao.MtimePromoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.stylefeng.guns.api.common.persistence.model.MtimePromo">
-        <id column="uuid" property="uuid" />
+    <resultMap id="BaseResultMap" type="com.stylefeng.guns.api.seckill.bean.BaseBean">
+        <id column="cinema_address" property="cinemaAddress" />
         <result column="cinema_id" property="cinemaId" />
+        <result column="cinema_name" property="cinemaName" />
+        <result column="description" property="description" />
+        <result column="end_time" property="endTime" />
+        <result column="img_address" property="imgAddress" />
         <result column="price" property="price" />
         <result column="start_time" property="startTime" />
-        <result column="end_time" property="endTime" />
         <result column="status" property="status" />
-        <result column="description" property="description" />
+        <result column="stock" property="stock" />
+        <result column="uuid" property="uuid" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        uuid, cinema_id, price, start_time, end_time, `status`, `description`
-    </sql>
+
     <select id="selectAllPromo" resultMap="BaseResultMap">
         select
         mct.cinema_address,
@@ -32,6 +33,6 @@
         ms.stock
         from mtime_cinema_t mct left join mtime_promo mp on mct.cid = mp.pid
         left join mtime_promo_stock on mp.pid = ms.promo_id
-        where 1=1
+        where #{promoDate} between mp.start_time and mp.end_time
     </select>
 </mapper>

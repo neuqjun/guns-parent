@@ -2,11 +2,11 @@ package com.stylefeng.guns.api.modular.auth.converter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.stylefeng.guns.api.config.properties.JwtProperties;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.MD5Util;
 import com.stylefeng.guns.api.common.exception.BizExceptionEnum;
-import com.stylefeng.guns.api.config.properties.JwtProperties;
 import com.stylefeng.guns.api.modular.auth.security.DataSecurityAction;
 import com.stylefeng.guns.api.modular.auth.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;

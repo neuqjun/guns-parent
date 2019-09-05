@@ -56,35 +56,63 @@ public class FilmServiceImpl implements FilmService {
     public ConditionListInfo getConditionList(ConditionList conditionList) {
         ConditionListInfo conditionListInfo = new ConditionListInfo();
         List<MtimeCatDictT> mtimeCatDictTS;
+        List<CatInfo> catInfos = new ArrayList<>();
         if(conditionList.getCatId() == 99){
             EntityWrapper<MtimeCatDictT> wrapper = new EntityWrapper();
             mtimeCatDictTS = mtimeCatDictTMapper.selectList(wrapper);
+            for (MtimeCatDictT mtimeCatDictT : mtimeCatDictTS) {
+                CatInfo catInfo = new CatInfo(mtimeCatDictT.getUuid(),mtimeCatDictT.getShowName());
+                catInfos.add(catInfo);
+            }
+
         }else {
             EntityWrapper<MtimeCatDictT> wrapper = new EntityWrapper();
             wrapper.eq("UUID",conditionList.getCatId());
             mtimeCatDictTS = mtimeCatDictTMapper.selectList(wrapper);
+            for (MtimeCatDictT mtimeCatDictT : mtimeCatDictTS) {
+                CatInfo catInfo = new CatInfo(mtimeCatDictT.getUuid(),mtimeCatDictT.getShowName());
+                catInfos.add(catInfo);
+            }
         }
-        conditionListInfo.setCatInfo(mtimeCatDictTS);
+        conditionListInfo.setCatInfo(catInfos);
         List<MtimeSourceDictT> mtimeSourceDictTS;
+        List<SourceInfo> sourceInfos = new ArrayList<>();
         if(conditionList.getSourceId() == 99){
             EntityWrapper<MtimeSourceDictT> wrapper = new EntityWrapper();
             mtimeSourceDictTS = mtimeSourceDictTMapper.selectList(wrapper);
+            for (MtimeSourceDictT mtimeSourceDictT : mtimeSourceDictTS) {
+                SourceInfo sourceInfo = new SourceInfo(mtimeSourceDictT.getUuid(),mtimeSourceDictT.getShowName());
+                sourceInfos.add(sourceInfo);
+            }
         }else {
             EntityWrapper<MtimeSourceDictT> wrapper = new EntityWrapper();
             wrapper.eq("UUID",conditionList.getSourceId());
             mtimeSourceDictTS = mtimeSourceDictTMapper.selectList(wrapper);
+            for (MtimeSourceDictT mtimeSourceDictT : mtimeSourceDictTS) {
+                SourceInfo sourceInfo = new SourceInfo(mtimeSourceDictT.getUuid(),mtimeSourceDictT.getShowName());
+                sourceInfos.add(sourceInfo);
+            }
         }
-        conditionListInfo.setSourceInfo(mtimeSourceDictTS);
+        conditionListInfo.setSourceInfo(sourceInfos);
         List<MtimeYearDictT> mtimeYearDictTS;
+        List<YearInfo> yearInfos = new ArrayList<>();
         if(conditionList.getYearId() == 99){
             EntityWrapper<MtimeYearDictT> wrapper = new EntityWrapper();
             mtimeYearDictTS = mtimeYearDictTMapper.selectList(wrapper);
+            for (MtimeYearDictT mtimeYearDictT : mtimeYearDictTS) {
+                YearInfo yearInfo = new YearInfo(mtimeYearDictT.getUuid(), mtimeYearDictT.getShowName());
+                yearInfos.add(yearInfo);
+            }
         }else {
             EntityWrapper<MtimeYearDictT> wrapper = new EntityWrapper();
             wrapper.eq("UUID",conditionList.getYearId());
             mtimeYearDictTS= mtimeYearDictTMapper.selectList(wrapper);
+            for (MtimeYearDictT mtimeYearDictT : mtimeYearDictTS) {
+                YearInfo yearInfo = new YearInfo(mtimeYearDictT.getUuid(), mtimeYearDictT.getShowName());
+                yearInfos.add(yearInfo);
+            }
         }
-        conditionListInfo.setYearInfo(mtimeYearDictTS);
+        conditionListInfo.setYearInfo(yearInfos);
         return conditionListInfo;
     }
 

@@ -77,11 +77,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(UserVO userVO) {
-        String username = userVO.getUsername();
-        String password = userVO.getPassword();
+    public String login(String userName,String password) {
         String encrypt = MD5Util.encrypt(password);
-        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsernameAndPassword(username,encrypt);
+        MtimeUserT mtimeUserT = mtimeUserTMapper.selectByUsernameAndPassword(userName,encrypt);
         String userId = Integer.toString(mtimeUserT.getUuid());
         return userId;
     }
