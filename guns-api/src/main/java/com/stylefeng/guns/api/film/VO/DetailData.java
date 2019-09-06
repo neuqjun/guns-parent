@@ -20,7 +20,7 @@ public class DetailData implements Serializable {
     String info03;
     String filmId;
     Info info04;
-    ImgVO imgVO;
+
     String filmImgs;
 
 
@@ -121,13 +121,6 @@ public class DetailData implements Serializable {
         this.info04 = info04;
     }
 
-    public ImgVO getImgVO() {
-        return imgVO;
-    }
-
-    public void setImgVO(ImgVO imgVO) {
-        this.imgVO = imgVO;
-    }
 
     public String getFilmCats() {
         return filmCats;

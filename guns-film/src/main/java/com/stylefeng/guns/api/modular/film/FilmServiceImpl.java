@@ -140,10 +140,10 @@ public class FilmServiceImpl implements FilmService {
         detailData.setInfo03(filmTime + " " + mtimeSourceDictT.getShowName() + "上映");
         String filmImgs = detailData.getFilmImgs();
         String[] split1 = filmImgs.split(",");
-        detailData.getImgVO().setImg01(split1[0]);
-        detailData.getImgVO().setImg02(split1[1]);
-        detailData.getImgVO().setImg03(split1[2]);
-        detailData.getImgVO().setImg04(split1[3]);
+        detailData.getInfo04().getImgVO().setImg01(split1[0]);
+        detailData.getInfo04().getImgVO().setImg02(split1[1]);
+        detailData.getInfo04().getImgVO().setImg03(split1[2]);
+        detailData.getInfo04().getImgVO().setImg04(split1[3]);
         return detailData;
     }
 
@@ -171,10 +171,10 @@ public class FilmServiceImpl implements FilmService {
         detailData.setInfo03(filmTime + " " + mtimeSourceDictT.getShowName() + "上映");
         String filmImgs = detailData.getFilmImgs();
         String[] split1 = filmImgs.split(",");
-        detailData.getImgVO().setImg01(split1[0]);
-        detailData.getImgVO().setImg02(split1[1]);
-        detailData.getImgVO().setImg03(split1[2]);
-        detailData.getImgVO().setImg04(split1[3]);
+        detailData.getInfo04().getImgVO().setImg01(split1[0]);
+        detailData.getInfo04().getImgVO().setImg02(split1[1]);
+        detailData.getInfo04().getImgVO().setImg03(split1[2]);
+        detailData.getInfo04().getImgVO().setImg04(split1[3]);
         return detailData;
     }
 }
