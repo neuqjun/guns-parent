@@ -1,16 +1,16 @@
 package com.stylefeng.guns.api.seckill;
 
+import com.stylefeng.guns.api.seckill.vo.PromoResponseVo;
 
-import com.stylefeng.guns.api.seckill.vo.SeckillRespVo;
-import com.stylefeng.guns.api.seckill.vo.SeckillVo;
+public interface SecKillService {
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+    PromoResponseVo getPromo(Integer brandId);
 
-public interface SeckillService {
+    String initPromoStockLog(Integer promoId, Integer amount);
 
-    SeckillRespVo selectAllPromo();
+    Boolean transactionSavePromoOrder(Integer promoId, Integer userId, Integer amount, String stockLogId);
 
-    SeckillRespVo createPromo(SeckillVo seckillVo, HttpServletRequest request, HttpServletResponse response);
+    void savePromoOrder(Integer promoId, Integer amount, Integer userId, String stockLogId);
 
+    Boolean publishPromoStock(Integer cinemaId);
 }

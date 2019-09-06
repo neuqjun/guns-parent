@@ -158,17 +158,12 @@ public class CinemaServiceImpl implements CinemaService{
 
             Page<CinemaInfo> page = new Page<>(nowPage, pageSize);
             List<CinemaInfo> cinemaInfoList = cinemaTMapper.selectCinemasList(page, brandId, areaId, hallType);
-            long total = page.getTotal();
-            if(total < 1) {
-                throw new CinemaQueryException("数据数量为0");
-            } else {
-                cinemaListVo.setStatus(0);
-                cinemaListVo.setNowPage(page.getCurrent());
-                cinemaListVo.setTotalPage(page.getPages());
-                cinemaListVo.setData(cinemaInfoList);
-                cinemaListVo.setImgPre("");
-                cinemaListVo.setMsg("http://img.meetingshop.cn/");
-            }
+            cinemaListVo.setStatus(0);
+            cinemaListVo.setNowPage(page.getCurrent());
+            cinemaListVo.setTotalPage(page.getPages());
+            cinemaListVo.setData(cinemaInfoList);
+            cinemaListVo.setImgPre("http://img.meetingshop.cn/");
+            cinemaListVo.setMsg("");
         return cinemaListVo;
     }
 
@@ -178,32 +173,28 @@ public class CinemaServiceImpl implements CinemaService{
             List<BrandInfo> brandInfoList = brandDictTMapper.getBrandInfoById(brandId);
             List<HalltypeInfo> halltypeInfoList = hallDictTMapper.getHalltypeInfoById(hallType);
             List<AreaInfo> areaInfoList = areaDictTMapper.getAreaInfoById(areaId);
-            if(brandInfoList.size() > 0 && halltypeInfoList.size() > 0 && areaInfoList.size() > 0) {
-                //修改当前选中标签 isActive=true
-                for (BrandInfo brandInfo : brandInfoList) {
-                    if(brandInfo.getBrandId().equals(brandId) || (brandId == null && brandInfo.getBrandId().equals(99))) {
-                        brandInfo.setActive(true);
-                    }
+            //修改当前选中标签 isActive=true
+            for (BrandInfo brandInfo : brandInfoList) {
+                if(brandInfo.getBrandId().equals(brandId) || (brandId == null && brandInfo.getBrandId().equals(99))) {
+                    brandInfo.setActive(true);
                 }
-                for (HalltypeInfo halltypeInfo : halltypeInfoList) {
-                    if(halltypeInfo.getHalltypeId().equals(hallType) || (hallType == null && halltypeInfo.getHalltypeId().equals(99))) {
-                        halltypeInfo.setIsActive(true);
-                    }
-                }
-                for (AreaInfo areaInfo : areaInfoList) {
-                    if(areaInfo.getAreaId().equals(areaId) || (areaId == null && areaInfo.getAreaId().equals(99))) {
-                        areaInfo.setIsActive(true);
-                    }
-                }
-                cinemaConditionVo.setStatus(0);
-                HashMap<String, Object> dataMap = new HashMap<>();
-                dataMap.put("brandList", brandInfoList);
-                dataMap.put("halltypeList", halltypeInfoList);
-                dataMap.put("areaList", areaInfoList);
-                cinemaConditionVo.setData(dataMap);
-            } else {
-                throw new CinemaQueryException("若干数据数量为0");
             }
-        return cinemaConditionVo;
+            for (HalltypeInfo halltypeInfo : halltypeInfoList) {
+                if(halltypeInfo.getHalltypeId().equals(hallType) || (hallType == null && halltypeInfo.getHalltypeId().equals(99))) {
+                    halltypeInfo.setIsActive(true);
+                }
+            }
+            for (AreaInfo areaInfo : areaInfoList) {
+                if(areaInfo.getAreaId().equals(areaId) || (areaId == null && areaInfo.getAreaId().equals(99))) {
+                    areaInfo.setIsActive(true);
+                }
+            }
+            cinemaConditionVo.setStatus(0);
+            HashMap<String, Object> dataMap = new HashMap<>();
+            dataMap.put("brandList", brandInfoList);
+            dataMap.put("halltypeList", halltypeInfoList);
+            dataMap.put("areaList", areaInfoList);
+            cinemaConditionVo.setData(dataMap);
+            return cinemaConditionVo;
     }
 }

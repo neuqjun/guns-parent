@@ -1,12 +1,12 @@
 package com.stylefeng.guns.api.common.aop;
 
+
 import com.stylefeng.guns.api.cinema.exception.CinemaQueryException;
 import com.stylefeng.guns.api.cinema.vo.ErrorResp;
 import com.stylefeng.guns.api.common.exception.CinemaExceptionEnum;
 import com.stylefeng.guns.core.aop.BaseControllerExceptionHandler;
 import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.api.common.exception.BizExceptionEnum;
-import com.stylefeng.guns.core.exception.SystemException;
 import com.stylefeng.guns.core.exception.SystemExceptionEnum;
 import io.jsonwebtoken.JwtException;
 import org.slf4j.Logger;

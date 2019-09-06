@@ -35,7 +35,24 @@ public enum GunsExceptionEnum implements ServiceExceptionEnum {
      */
     TOKEN_EXPIRE(400,"当前登录已过期"),
 
-    DATABASE_ERROR(500,"数据库异常");
+    /**
+     *流水生成失败
+     */
+    STOCK_LOG_INIT_ERROR(500, "生成流水失败"),
+
+    /**
+     * 数据库错误
+     */
+    DATABASE_ERROR(500, "数据库错误"),
+    /**
+     * 生成订单失败
+     */
+    GENERATE_ORDER_ERROR(500, "生成订单错误"),
+    /**
+     * 修改库存失败
+     */
+    STOCK_ERROR(500, "修改库存失败")
+    ;
 
     GunsExceptionEnum(int code, String message) {
         this.code = code;

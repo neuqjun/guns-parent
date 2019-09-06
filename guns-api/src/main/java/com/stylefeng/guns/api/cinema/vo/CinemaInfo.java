@@ -13,7 +13,7 @@ public class CinemaInfo implements Serializable {
 
     private String cinemaName;
 
-    private String address;
+    private String cinemaAddress;
 
     private int minimumPrice;
 }

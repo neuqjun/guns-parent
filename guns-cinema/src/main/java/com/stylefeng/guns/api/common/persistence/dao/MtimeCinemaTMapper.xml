@@ -22,7 +22,7 @@
     <resultMap id="CinemaMap" type="com.stylefeng.guns.api.cinema.vo.CinemaInfo">
         <id column="UUID" property="uuid" />
         <result column="cinema_name" property="cinemaName" />
-        <result column="cinema_address" property="address" />
+        <result column="cinema_address" property="cinemaAddress" />
         <result column="minimum_price" property="minimumPrice" />
     </resultMap>
 
