@@ -5,7 +5,15 @@ import java.io.Serializable;
 public class Info implements Serializable {
     String biography;
     Actorss actors;
+    ImgVO imgVO;
 
+    public ImgVO getImgVO() {
+        return imgVO;
+    }
+
+    public void setImgVO(ImgVO imgVO) {
+        this.imgVO = imgVO;
+    }
 
     public String getBiography() {
         return biography;

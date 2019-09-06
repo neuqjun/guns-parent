@@ -90,10 +90,11 @@
                     <result column="actor_img" property="imgAddress"/>
                 </collection>
             </association>
+            <association property="imgVO" javaType="com.stylefeng.guns.api.film.VO.ImgVO">
+                <result column="img_address" property="mainImg" />
+            </association>
         </association>
-        <association property="imgVO" javaType="com.stylefeng.guns.api.film.VO.ImgVO">
-            <result column="img_address" property="mainImg" />
-        </association>
+
 
     </resultMap>
 
