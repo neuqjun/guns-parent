@@ -8,10 +8,9 @@ jwt:
   expiration: 604800      #7天 单位:秒
   auth-path: auth         #认证请求的路径
   md5-key: randomKey      #md5加密混淆key
-  register-path: user/register
 
 server:
-  port: 8080 #项目端口
+  port: 8086 #项目端口
 
 mybatis-plus:
   mapper-locations: classpath*:com/stylefeng/guns/api/**/mapping/*.xml
@@ -29,34 +28,27 @@ mybatis-plus:
 
 spring:
   datasource:
-      url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-      username: root
-      password: 123456
-      filters: log4j,wall,mergeStat
-      driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/guns?serverTimezone=GMT&autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    filters: log4j,wall,mergeStat
+    driver-class-name: com.mysql.jdbc.Driver
   application:
-    name: guns-gateway
+    name: guns-cinema
   dubbo:
     server: true
     registry: zookeeper://localhost:2181
     protocol:
       name: dubbo
-      port: 20880
-  redis:
-    host: 127.0.0.1
-    password:
-    port: 6379
-    jedis:
-      pool:
-        max-active: 200
-        max-idle: 20
-        min-idle: 0
-        max-wait: -1
-    timeout: 10000
-    database: 0
+      port: 20886
+
+mq:
+  nameserver:
+    address: 127.0.0.1:9876
+  topic: stock
 
 logging:
   level.root: info
   level.com.stylefeng: debug
   path: logs/
-  file: guns-gateway.log
+  file: guns-cinema.log

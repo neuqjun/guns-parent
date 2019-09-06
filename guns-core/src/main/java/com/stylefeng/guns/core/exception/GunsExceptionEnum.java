@@ -28,7 +28,26 @@ public enum GunsExceptionEnum implements ServiceExceptionEnum {
      * 错误的请求
      */
     REQUEST_NULL(400, "请求有错误"),
-    SERVER_ERROR(500, "服务器异常");
+    SERVER_ERROR(500, "服务器异常"),
+
+    /**
+     *流水生成失败
+     */
+    STOCK_LOG_INIT_ERROR(500, "生成流水失败"),
+
+    /**
+     * 数据库错误
+     */
+    DATABASE_ERROR(500, "数据库错误"),
+    /**
+     * 生成订单失败
+     */
+    GENERATE_ORDER_ERROR(500, "生成订单错误"),
+    /**
+     * 修改库存失败
+     */
+    STOCK_ERROR(500, "修改库存失败")
+    ;
 
     GunsExceptionEnum(int code, String message) {
         this.code = code;
