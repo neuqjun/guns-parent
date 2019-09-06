@@ -20,7 +20,6 @@
         <module>guns-api</module>
         <module>guns-order</module>
         <module>guns-alipay</module>
-        <module>guns-seckill</module>
     </modules>
 
     <parent>

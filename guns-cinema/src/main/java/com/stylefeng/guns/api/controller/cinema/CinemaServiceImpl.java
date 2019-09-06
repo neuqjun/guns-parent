@@ -198,8 +198,8 @@ public class CinemaServiceImpl implements CinemaService{
                 cinemaConditionVo.setStatus(0);
                 HashMap<String, Object> dataMap = new HashMap<>();
                 dataMap.put("brandList", brandInfoList);
-                dataMap.put("halltypeInfoList", halltypeInfoList);
-                dataMap.put("areaInfoList", areaInfoList);
+                dataMap.put("halltypeList", halltypeInfoList);
+                dataMap.put("areaList", areaInfoList);
                 cinemaConditionVo.setData(dataMap);
             } else {
                 throw new CinemaQueryException("若干数据数量为0");

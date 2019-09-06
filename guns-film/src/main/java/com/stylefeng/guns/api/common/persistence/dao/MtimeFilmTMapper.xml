@@ -114,7 +114,8 @@
 
 
     <select id="queryFilmList" resultMap="queryFilmListMap">
-        select film_name,
+        select UUID,
+        film_name,
         film_type,
         img_address,
         film_score,
