@@ -10,4 +10,10 @@
         <result column="status" property="status" />
     </resultMap>
 
+    <insert id="insertStockLog">
+        insert into mtime_stock_log
+        (uuid,promo_id,amount,status)
+        values
+        (#{stockLog.uuid},#{stockLog.promoId},#{stockLog.amount},#{stockLog.status})
+    </insert>
 </mapper>

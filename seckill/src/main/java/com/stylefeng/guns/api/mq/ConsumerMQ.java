@@ -36,7 +36,7 @@ public class ConsumerMQ {
     public void init() throws MQClientException {
         defaultMQPullConsumer = new DefaultMQPushConsumer("stock_consumer");
         defaultMQPullConsumer.setNamesrvAddr(namesrvAddr);
-        defaultMQPullConsumer.subscribe("topic", "*");
+        defaultMQPullConsumer.subscribe("stock", "*");
         defaultMQPullConsumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext consumeConcurrentlyContext) {

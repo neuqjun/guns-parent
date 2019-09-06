@@ -1,13 +1,16 @@
 package com.stylefeng.guns.api.modular.auth.util;
 
+import com.stylefeng.guns.api.common.persistence.dao.UserMapper;
 import com.stylefeng.guns.api.config.properties.JwtProperties;
 import com.stylefeng.guns.api.seckill.vo.UserLoginInfoVo;
+import com.stylefeng.guns.api.user.UserService;
 import com.stylefeng.guns.core.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +27,12 @@ public class TokenUtil {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
+    private Jedis jedis;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private JwtProperties jwtProperties;
     //userId在redis中的有效时间
     private static final Integer expireTime = 60 * 60;
@@ -37,7 +46,9 @@ public class TokenUtil {
             authToken = requestHeader.substring(7);//获取authtoken
             //从token中获取userId
             try {//token是否过期和签名在访问gateway是已经验证
-                userId = jwtTokenUtil.getUsernameFromToken(authToken);
+                // userId = jwtTokenUtil.getUsernameFromToken(authToken);
+                userId = jedis.get(authToken);
+                //userId = userMapper.selectUserIdByUsername(username);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new SystemException("服务器错误");

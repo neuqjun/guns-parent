@@ -44,7 +44,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 获取请求 url
+        /*// 获取请求 url
         String servletPath = request.getServletPath();
         // 判断请求 url是否需要鉴权
         String checkPaths = jwtProperties.getCheckPaths();
@@ -68,12 +68,12 @@ public class AuthFilter extends OncePerRequestFilter {
                     throw new GunsException(GunsExceptionEnum.TOKEN_EXPIRE);
                 } else {
                     // 刷新过期时间
-                    jedis.expire(authToken, expireSeconds);
+                    jedis.expire(authToken,expireSeconds);
                 }
             }
 
 
-            /* 这一段是判断原来在生成 token时设置的时间期限是否过期
+            *//* 这一段是判断原来在生成 token时设置的时间期限是否过期
             //验证token是否过期,包含了验证jwt是否正确
             try {
                 boolean flag = jwtTokenUtil.isTokenExpired(authToken);
@@ -81,7 +81,7 @@ public class AuthFilter extends OncePerRequestFilter {
                     RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_EXPIRED.getCode(), BizExceptionEnum.TOKEN_EXPIRED.getMessage()));
                     return;
                 }
-            }*/
+            }*//*
              catch (JwtException e) {
                 //有异常就是token解析失败
                 RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
@@ -91,7 +91,7 @@ public class AuthFilter extends OncePerRequestFilter {
             //header没有带Bearer字段
             RenderUtil.renderJson(response, new ErrorTip(BizExceptionEnum.TOKEN_ERROR.getCode(), BizExceptionEnum.TOKEN_ERROR.getMessage()));
             return;
-        }
+        }*/
         chain.doFilter(request, response);
     }
 }

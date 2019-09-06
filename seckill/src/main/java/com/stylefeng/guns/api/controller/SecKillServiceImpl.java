@@ -22,6 +22,7 @@ import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.exception.GunsExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -30,6 +31,8 @@ import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @Component
 @Service(interfaceClass = SecKillService.class)
@@ -84,7 +87,7 @@ public class SecKillServiceImpl implements SecKillService {
         UUID uuid = UUID.randomUUID();
         mtimeStockLog.setUuid(uuid.toString());
         mtimeStockLog.setStatus(StockLogStatus.INIT.getIndex());
-        Integer insert = stockLogMapper.insert(mtimeStockLog);
+        Integer insert = stockLogMapper.insertStockLog(mtimeStockLog);
         if(insert > 0) {
             return uuid.toString();
         } else {
@@ -125,6 +128,8 @@ public class SecKillServiceImpl implements SecKillService {
         entityWrapper.eq("uuid",stockLogId);
         Integer update = stockLogMapper.update(mtimeStockLog, entityWrapper);
         if(update <= 0) {//更新流水失败
+            String sellOutKey = PROMO_STOCK_CACHE_SELLOUT_PREFIX + promoId;
+            redisTemplate.opsForValue().set(sellOutKey,"");
             //回滚redis
             increaseStock(promoId, amount);
             throw new GunsException(GunsExceptionEnum.STOCK_ERROR);
@@ -145,11 +150,15 @@ public class SecKillServiceImpl implements SecKillService {
             String tokenAmountkey = "token_amount_key_prefix" + uuid;
             Integer amount = stock * 5;
             redisTemplate.opsForValue().set(tokenAmountkey,amount+"");
-
         }
         return true;
     }
 
+    @Override
+    public List<PromoVO> getPromoByCinemaId(Integer cinemaId) {
+        List<PromoVO> promoVOS = mtimePromoMapper.queryPromosByCinemaId(cinemaId,PromoStatus.ING.getIndex());
+        return promoVOS;
+    }
 
     //参数校验
     private void processParam(Integer promoId, Integer userId, Integer amount) {
@@ -170,7 +179,8 @@ public class SecKillServiceImpl implements SecKillService {
     //生成秒杀订单
     private MtimePromoOrder insertPromoOrder(MtimePromo promo,Integer userId, Integer amount){
         MtimePromoOrder promoOrder = buidPromoOrder(promo,userId,amount);
-        Integer insertRet = promoOrderMapper.insert(promoOrder);
+        promoOrder.setUuid(UUID.randomUUID().toString());
+        Integer insertRet = promoOrderMapper.insertPromoOrder(promoOrder);
         if (insertRet < 1) {
             log.info("生成秒杀订单失败！promoOrder:{}", JSON.toJSONString(promoOrder));
             return null;
@@ -203,7 +213,18 @@ public class SecKillServiceImpl implements SecKillService {
     //减少库存
     public Boolean decreaseStock(Integer promoId, Integer amount) {
         try {
-            Long decrease = redisTemplate.opsForValue().increment("promo1", amount * -1);
+            //Long decrease = redisTemplate.opsForValue().increment("promo1", amount * -1);
+            String key = PROMO_STOCK_CACHE_PREFIX + promoId;
+            Long increment = redisTemplate.opsForValue().increment(key, amount * -1);
+            if (increment  ==0 ) {
+                //打上库存售罄的标记
+                String sellOutKey = PROMO_STOCK_CACHE_SELLOUT_PREFIX + promoId;
+                redisTemplate.opsForValue().set(sellOutKey,"sellout");
+                redisTemplate.expire(sellOutKey,12, TimeUnit.HOURS);
+                return true;
+            }else if (increment < 0){
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;

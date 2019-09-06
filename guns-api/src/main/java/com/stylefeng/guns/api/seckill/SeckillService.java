@@ -1,6 +1,9 @@
 package com.stylefeng.guns.api.seckill;
 
 import com.stylefeng.guns.api.seckill.vo.PromoResponseVo;
+import com.stylefeng.guns.api.seckill.vo.PromoVO;
+
+import java.util.List;
 
 public interface SecKillService {
 
@@ -13,4 +16,6 @@ public interface SecKillService {
     void savePromoOrder(Integer promoId, Integer amount, Integer userId, String stockLogId);
 
     Boolean publishPromoStock(Integer cinemaId);
+
+    List<PromoVO> getPromoByCinemaId(Integer cinemaId);
 }

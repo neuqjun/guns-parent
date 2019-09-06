@@ -2,6 +2,7 @@ package com.stylefeng.guns.api.common.persistence.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.stylefeng.guns.api.common.persistence.model.MtimePromoOrder;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.stylefeng.guns.api.common.persistence.model.MtimePromoOrder;
  */
 public interface MtimePromoOrderMapper extends BaseMapper<MtimePromoOrder> {
 
+    Integer insertPromoOrder(@Param("promoOrder") MtimePromoOrder promoOrder);
 }

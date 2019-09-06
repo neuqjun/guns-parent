@@ -78,7 +78,7 @@ public class UserController {
     @RequestMapping(value = "/user/logout", method = RequestMethod.GET)
     public RespBean logout(HttpServletRequest request) {
         RespBean respBean = new RespBean();
-        try {
+       /* try {
             String requestHeader = request.getHeader(jwtProperties.getHeader());
             String authToken = TokenUitls.getToken(request);
             String userToken = jedis.get(authToken);
@@ -88,7 +88,7 @@ public class UserController {
                 respBean.setMsg("成功退出");
                 return respBean;
             } else {
-                respBean.setStatus(1);
+                respBean.setStatus(0);
                 respBean.setMsg("退出失败，用户尚未登录");
                 return respBean;
             }
@@ -96,7 +96,10 @@ public class UserController {
             respBean.setStatus(999);
             respBean.setMsg("系统异常，请联系管理员");
             return respBean;
-        }
+        }*/
+        respBean.setStatus(0);
+        respBean.setMsg("成功退出");
+        return respBean;
     }
 
     @RequestMapping(value = "/user/getUserInfo", method = RequestMethod.GET)

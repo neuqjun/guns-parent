@@ -15,4 +15,12 @@
         <result column="end_time" property="endTime" />
     </resultMap>
 
+    <insert id="insertPromoOrder">
+        insert into mtime_promo_order
+        (uuid,user_id,cinema_id,exchange_code,amount,price,start_time,create_time,end_time)
+        values
+        (#{promoOrder.uuid},#{promoOrder.userId},#{promoOrder.cinemaId},#{promoOrder.exchangeCode},#{promoOrder.amount},
+        #{promoOrder.price},#{promoOrder.startTime},#{promoOrder.createTime},#{promoOrder.endTime})
+    </insert>
+
 </mapper>
